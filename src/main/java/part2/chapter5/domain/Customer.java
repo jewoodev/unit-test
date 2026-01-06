@@ -1,10 +1,12 @@
-package part2.chapter5;
+package part2.chapter5.domain;
 
 public class Customer {
     private final Store store;
+    private String emailAddress;
 
-    public Customer(Store store) {
+    public Customer(Store store, String emailAddress) {
         this.store = store;
+        this.emailAddress = emailAddress;
     }
 
     public boolean purchase(Product product, int num) {
@@ -14,5 +16,9 @@ public class Customer {
 
         this.store.removeInventory(product, num);
         return true;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
     }
 }

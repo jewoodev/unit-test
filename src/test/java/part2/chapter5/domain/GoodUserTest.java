@@ -1,19 +1,18 @@
-package part2.chapter5;
+package part2.chapter5.domain;
 
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class BadUserTest {
+class GoodUserTest {
     @Test
-    void renameUser() {
-        var user = new BadUser("Doe jun");
+    void test() {
+        var user = new GoodUser("Doe jun");
 
-        String newName = user.normalizeName(
+        user.modifyName(
                 "His name length is over 50 characters, His name length is over 50 characters, His name length is over 50 characters"
         );
 
-        user.modifyName(newName);
-        assertThat(newName.length()).isEqualTo(50);
+        assertThat(user.getName().length()).isEqualTo(50);
     }
 }

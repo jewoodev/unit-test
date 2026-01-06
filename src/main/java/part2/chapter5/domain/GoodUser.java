@@ -1,4 +1,4 @@
-package part2.chapter5;
+package part2.chapter5.domain;
 
 public class GoodUser {
     private String name;
