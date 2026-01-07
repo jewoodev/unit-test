@@ -3,6 +3,7 @@ package part2.chapter5.adapter.out.external.api;
 import part2.chapter5.adapter.out.external.email.EmailGateway;
 import part2.chapter5.adapter.out.persistence.CustomerRepository;
 import part2.chapter5.adapter.out.persistence.ProductRepository;
+import part2.chapter5.domain.Customer;
 
 public class CustomerApi {
     private final CustomerRepository customerRepository;
@@ -26,5 +27,9 @@ public class CustomerApi {
         }
 
         return isSuccess;
+    }
+
+    public void greeting(Customer customer) {
+        emailGateway.sendGreeting(customer.getEmailAddress());
     }
 }

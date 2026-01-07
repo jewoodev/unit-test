@@ -1,5 +1,6 @@
 package part2.chapter5.domain;
 
 public enum Product {
-    SHAMPOO
+    SHAMPOO,
+    HAND_WASH
 }
