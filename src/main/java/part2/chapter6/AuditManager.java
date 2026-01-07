@@ -39,23 +39,25 @@ public class AuditManager {
             List<String> lines = Files.lines(curFilePath).collect(Collectors.toList());
 
             if (lines.size() < this.maxEntriesPerFile) {
-                lines.add("\n" + newRecord);
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(curFilePath.toString()))) {
-                    bw.write(lines.toString());
+                    lines.add(newRecord);
+                    bw.write(String.join("\n", lines));
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    throw new RuntimeException("존재하던 파일에 내용을 수정하는 도중 에러 발생!", e);
                 }
             }
             else {
-                int newIndex = filesCnt;
-                String newName = "audit_" + newIndex + ".txt";
-                Path newFilePath = curFilePath.resolve(newName);
-                try (BufferedWriter bw = new BufferedWriter(new FileWriter(newFilePath.toString()))) {
+                int newIndex = filesCnt + 1;
+                String newName = "/audit_" + newIndex + ".txt";
+                String newFilePath = this.directoryName + newName;
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(newFilePath))) {
                     bw.write(newRecord);
+                } catch (IOException e) {
+                    throw new RuntimeException("새 파일을 만드는 도중 에러 발생!", e);
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("디렉토리 내 선택된 파일 내용을 읽는 도중 에러 발생!", e);
         }
     }
 }
