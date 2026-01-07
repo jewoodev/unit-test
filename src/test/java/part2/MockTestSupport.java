@@ -9,7 +9,7 @@ import part2.chapter5.application.required.ProductRepository;
 import part2.chapter5.domain.Store;
 
 @ExtendWith(MockitoExtension.class)
-public abstract class MockTestSupport {
+public abstract class MockTestSupport extends GlobalTestSupport {
     @Mock
     protected CustomerRepository customerRepository;
 
