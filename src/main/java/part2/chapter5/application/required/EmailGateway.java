@@ -1,4 +1,4 @@
-package part2.chapter5.adapter.out.external.email;
+package part2.chapter5.application.required;
 
 import part2.chapter5.domain.Product;
 

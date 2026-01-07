@@ -1,4 +1,4 @@
-package part2.chapter5.adapter.out.external.api;
+package part2.chapter5.adapter.in.api;
 
 import org.junit.jupiter.api.Test;
 import part2.MockTestSupport;
