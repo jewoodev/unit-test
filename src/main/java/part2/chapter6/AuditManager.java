@@ -1,44 +1,34 @@
 package part2.chapter6;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-public class AuditManager {
-    private final int maxEntriesPerFile;
-    private final String directoryName;
-    private final AuditRepository repository;
+public record AuditManager(
+        int maxEntriesPerFile
+) {
+    public AuditFileUpdate addRecord(
+            AuditData[] auditData,
+            String visitorName,
+            LocalDateTime visitedDt
+    ) {
+        String freshRecord = visitorName + ";" + visitedDt;
 
-    public AuditManager(int maxEntriesPerFile, String directoryName, AuditRepository repository) {
-        this.maxEntriesPerFile = maxEntriesPerFile;
-        this.directoryName = directoryName;
-        this.repository = repository;
-    }
-
-    public void addRecord(String visitorName, LocalDateTime visitedDt) {
-        List<AuditData> data = this.repository.getAuditData(this.directoryName);
-        String newRecord = visitorName + ";" + visitedDt;
-
-        if (data.isEmpty()) {
-            repository.createNewAuditData("audit_1.txt", newRecord);
-            return;
+        if (auditData.length == 0) {
+            return new AuditFileUpdate("audit_1.txt", freshRecord);
         }
 
-        AuditData lastData = data.get(data.size() - 1);
+        AuditData lastAuditData = auditData[auditData.length - 1];
+        List<String> dataOfLastData = lastAuditData.data();
 
-        if (lastData.getDataCount() < maxEntriesPerFile) {
-            List<String> updatedLines = new ArrayList<>(lastData.data());
-            updatedLines.add(newRecord);
-            repository.appendToData(lastData.name(), String.join("\n", updatedLines));
+        if (lastAuditData.getDataCount() < maxEntriesPerFile) {
+            dataOfLastData.add(freshRecord);
+            String freshContent = String.join("\n", dataOfLastData);
+            return new AuditFileUpdate(lastAuditData.name(), freshContent);
         }
         else {
-            int newIndex = data.size() + 1;
-            String newName = "audit_" + newIndex + ".txt";
-            repository.createNewAuditData(newName, newRecord);
+            int freshIndex = auditData.length + 1;
+            String freshName = "audit_" + freshIndex + ".txt";
+            return new AuditFileUpdate(freshName, freshRecord);
         }
-    }
-
-    public int getMaxEntriesPerFile() {
-        return maxEntriesPerFile;
     }
 }
