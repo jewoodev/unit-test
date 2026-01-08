@@ -10,12 +10,12 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class AuditManagerTest {
+class AuditFileManagerTest {
     @Test
     void createNewDataWhenMaxEntriesExceeded() {
         // given
         int maxEntriesPerFile = 5;
-        var sut = new AuditManager(maxEntriesPerFile);
+        var sut = new AuditFileManager(maxEntriesPerFile);
 
 
         var startSeconds = LocalDateTime.of(2023, 1, 1, 0, 0)

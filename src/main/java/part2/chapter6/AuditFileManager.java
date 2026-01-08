@@ -3,7 +3,7 @@ package part2.chapter6;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record AuditManager(
+public record AuditFileManager(
         int maxEntriesPerFile
 ) {
     public AuditFileUpdate addRecord(

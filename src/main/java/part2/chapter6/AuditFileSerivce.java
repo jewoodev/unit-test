@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 
 public record AuditFileSerivce(
         String directoryName,
-        AuditManager auditFileManager,
+        AuditFileManager auditFileManager,
         AuditFilePersister auditFilePersister
 ) {
     public AuditFileSerivce(String directoryName, int maxEntriesPerFile) {
-        this(directoryName, new AuditManager(maxEntriesPerFile), new AuditFilePersister());
+        this(directoryName, new AuditFileManager(maxEntriesPerFile), new AuditFilePersister());
     }
 
     public void addRecord(String visitorName, LocalDateTime visitedDt) {
