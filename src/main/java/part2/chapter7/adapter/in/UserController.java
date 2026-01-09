@@ -16,9 +16,11 @@ public class UserController {
         this.messageBus = messageBus;
     }
 
-    public void changeEmail(int userId, String freshEmail) {
+    public String changeEmail(int userId, String freshEmail) {
         Object[] userData = database.getUserById(userId);
         User user = UserFactory.create(userData);
+
+        user.canChangeEmail();
 
         Object[] companyData = database.getCompany();
         Company company = CompanyFactory.create(companyData);
@@ -28,5 +30,7 @@ public class UserController {
         database.saveCompany(company);
         database.saveUser(user);
         messageBus.sendEmailChangedMessage(userId, freshEmail);
+
+        return "OK";
     }
 }

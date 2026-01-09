@@ -7,11 +7,17 @@ public class User {
     public int userId;
     public String email;
     public UserType userType;
+    public boolean isEmailConfirmed;
 
     public User(int userId, String email, UserType userType) {
         this.userId = userId;
         this.email = email;
         this.userType = userType;
+    }
+
+    public void canChangeEmail() {
+        if (this.isEmailConfirmed)
+            throw new IllegalStateException("Can't change a confirmed email.");
     }
 
     public void changeEmail(String freshEmail, Company company) {
@@ -37,5 +43,9 @@ public class User {
 
     public UserType getUserType() {
         return userType;
+    }
+
+    public boolean getIsEmailConfirmed() {
+        return isEmailConfirmed;
     }
 }
