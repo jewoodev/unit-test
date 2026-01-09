@@ -2,8 +2,10 @@ package part2.chapter7.adapter.in;
 
 import part2.chapter7.application.required.Database;
 import part2.chapter7.application.required.MessageBus;
+import part2.chapter7.application.service.CompanyFactory;
+import part2.chapter7.application.service.UserFactory;
+import part2.chapter7.domain.Company;
 import part2.chapter7.domain.User;
-import part2.chapter7.domain.UserType;
 
 public class UserController {
     private final Database database;
@@ -15,18 +17,15 @@ public class UserController {
     }
 
     public void changeEmail(int userId, String freshEmail) {
-        var data = database.getUserById(userId);
-        String email = (String) data[0];
-        UserType type = (UserType) data[1];
-        var user = new User(userId, freshEmail, type);
+        Object[] userData = database.getUserById(userId);
+        User user = UserFactory.create(userData);
 
         Object[] companyData = database.getCompany();
-        String companyDomainName = (String) companyData[0];
-        int numberOfEmployees = (int) companyData[1];
+        Company company = CompanyFactory.create(companyData);
 
-        int freshNumberOfEmployees = user.changeEmail(freshEmail, companyDomainName, numberOfEmployees);
+        user.changeEmail(freshEmail, company);
 
-        database.saveCompany(freshNumberOfEmployees);
+        database.saveCompany(company);
         database.saveUser(user);
         messageBus.sendEmailChangedMessage(userId, freshEmail);
     }

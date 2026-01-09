@@ -1,7 +1,5 @@
 package part2.chapter7.domain;
 
-import part2.chapter7.application.required.Database;
-
 import static part2.chapter7.domain.UserType.CUSTOMER;
 import static part2.chapter7.domain.UserType.EMPLOYEE;
 
@@ -16,28 +14,20 @@ public class User {
         this.userType = userType;
     }
 
-    public int changeEmail(String freshEmail, String companyDomainName, int numberOfEmployees) {
-        Object[] data = database.getUserById(userId);
-
+    public void changeEmail(String freshEmail, Company company) {
         if (this.email == freshEmail)
             throw new IllegalArgumentException("Can't update with same email.");
 
-        String emailDomain = freshEmail.split("@")[1];
-        boolean isEmailCorporate = emailDomain.equals(companyDomainName);
-        UserType freshType = companyDomainName.equals("company.com") ? EMPLOYEE : CUSTOMER;
+        UserType freshType = company.isEmailCorporate(freshEmail)
+                ? EMPLOYEE : CUSTOMER;
 
-        if (this.userType == freshType) {
+        if (this.userType != freshType) {
             int delta = freshType == EMPLOYEE ? 1 : -1;
-            int freshNumber = numberOfEmployees + delta;
-            database.saveCompany(freshNumber);
+            company.changeNumberOfEmployees(delta);
         }
 
         this.email = freshEmail;
         this.userType = freshType;
-
-        return numberOfEmployees;
     }
 
-
-    private Database database; // 코드 구현만을 위한 임시 필드
 }
