@@ -1,4 +1,4 @@
-package part2.chapter6;
+package part2.chapter6.domain;
 
 import part2.chapter5.domain.Product;
 

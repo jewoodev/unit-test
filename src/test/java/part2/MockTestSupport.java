@@ -7,7 +7,7 @@ import part2.chapter5.application.required.CustomerRepository;
 import part2.chapter5.application.required.EmailGateway;
 import part2.chapter5.application.required.ProductRepository;
 import part2.chapter5.domain.Store;
-import part2.chapter6.AuditRepository;
+import part2.chapter6.application.required.AuditRepository;
 
 @ExtendWith(MockitoExtension.class)
 public abstract class MockTestSupport extends GlobalTestSupport {

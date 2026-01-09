@@ -1,6 +1,8 @@
-package part2.chapter6;
+package part2.chapter6.adapter.in;
 
 import org.junit.jupiter.api.Test;
+import part2.chapter6.domain.audit.AuditData;
+import part2.chapter6.domain.audit.AuditFileUpdate;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -46,9 +48,7 @@ class AuditFileManagerTest {
         AuditFileUpdate update = sut.addRecord(files, visitorName, endDt);
 
         // then
-        assertThat(update)
-                .isEqualTo(
-                        new AuditFileUpdate("audit_3.txt", visitorName + ";" + endDt)
-                );
+        assertThat(update.getName()).isEqualTo("audit_3.txt");
+        assertThat(update.getFreshContent()).isEqualTo(visitorName + ";" + endDt);
     }
 }

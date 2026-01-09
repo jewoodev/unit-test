@@ -2,6 +2,7 @@ package part2.chapter6;
 
 import org.junit.jupiter.api.Test;
 import part2.chapter5.domain.Product;
+import part2.chapter6.domain.Order;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

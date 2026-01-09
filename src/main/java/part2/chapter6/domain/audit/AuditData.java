@@ -1,4 +1,4 @@
-package part2.chapter6;
+package part2.chapter6.domain.audit;
 
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package part2.chapter6;
+package part2.chapter6.application.required;
+
+import part2.chapter6.domain.audit.AuditData;
 
 import java.util.List;
 

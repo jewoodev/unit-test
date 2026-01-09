@@ -1,4 +1,4 @@
-package part2.chapter6;
+package part2.chapter6.domain.article;
 
 import org.junit.jupiter.api.Test;
 import part2.GlobalTestSupport;

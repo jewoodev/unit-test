@@ -1,4 +1,8 @@
-package part2.chapter6;
+package part2.chapter6.adapter.in;
+
+import part2.chapter6.application.provided.AuditDataPersister;
+import part2.chapter6.domain.audit.AuditData;
+import part2.chapter6.domain.audit.AuditFileUpdate;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AuditFilePersister {
+public class AuditFilePersister implements AuditDataPersister<AuditFileUpdate> {
     public AuditData[] readDirectory(String directoryName) {
         File folder = createDirectoryIfNotExist(directoryName);
         File[] files = folder.listFiles();
@@ -30,9 +34,9 @@ public class AuditFilePersister {
 
     public void applyUpdate(String directoryName, AuditFileUpdate update) {
         createDirectoryIfNotExist(directoryName);
-        String freshFileName = directoryName + "/" + update.fileName();
+        String freshFileName = directoryName + "/" + update.getName();
         try (var bw = new BufferedWriter(new FileWriter(freshFileName))) {
-            bw.write(update.freshContent());
+            bw.write(update.getFreshContent());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
