@@ -1,31 +1,26 @@
 package part2.chapter7.domain;
 
 import part2.chapter7.application.required.Database;
-import part2.chapter7.application.required.MessageBus;
 
-import static part2.chapter7.domain.UserType.*;
+import static part2.chapter7.domain.UserType.CUSTOMER;
+import static part2.chapter7.domain.UserType.EMPLOYEE;
 
 public class User {
     public int userId;
     public String email;
     public UserType userType;
 
-    public User(int userId, String email, UserType userType, Database database) {
+    public User(int userId, String email, UserType userType) {
         this.userId = userId;
         this.email = email;
         this.userType = userType;
-        this.database = database;
     }
 
-    public void changeEmail(int userId, String freshEmail) {
+    public int changeEmail(String freshEmail, String companyDomainName, int numberOfEmployees) {
         Object[] data = database.getUserById(userId);
 
         if (this.email == freshEmail)
             throw new IllegalArgumentException("Can't update with same email.");
-
-        Object[] companyData = database.getCompany();
-        String companyDomainName = (String) companyData[0];
-        int numberOfEmployees = (int) companyData[1];
 
         String emailDomain = freshEmail.split("@")[1];
         boolean isEmailCorporate = emailDomain.equals(companyDomainName);
@@ -40,10 +35,9 @@ public class User {
         this.email = freshEmail;
         this.userType = freshType;
 
-        database.saveUser(this);
-        MessageBus.sendEmailChangedMessage(userId, freshEmail);
+        return numberOfEmployees;
     }
 
 
-    private Database database;
+    private Database database; // 코드 구현만을 위한 임시 필드
 }
