@@ -30,4 +30,12 @@ public class User {
         this.userType = freshType;
     }
 
+    // ↓ getter
+    public String getEmail() {
+        return email;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
 }

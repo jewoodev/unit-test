@@ -20,4 +20,13 @@ public class Company {
         String emailDomain = email.split("@")[1];
         return emailDomain.equals(this.domainName);
     }
+
+    // ↓ getter
+    public String getDomainName() {
+        return domainName;
+    }
+
+    public int getNumberOfEmployees() {
+        return numberOfEmployees;
+    }
 }
