@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import part2.SpringTestSupport;
 import part2.chapter8.adapter.in.UserController;
 import part2.chapter8.adapter.out.CompanyRepository;
 import part2.chapter8.adapter.out.UserRepository;
